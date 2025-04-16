@@ -5,11 +5,21 @@ const isPublicRoute = createRouteMatcher([
   '/sign-up(.*)'
 ])
 
+// export default clerkMiddleware(async (auth, req) => {
+//   if (!isPublicRoute(req)) {
+//     await auth.protect()
+//   }
+// })
 export default clerkMiddleware(async (auth, req) => {
-  if (!isPublicRoute(req)) {
-    await auth.protect()
+  const url = req.nextUrl.pathname;
+
+  const isPublic = isPublicRoute(req);
+  const isUploadThing = url.startsWith('/api/uploadthing');
+
+  if (!isPublic && !isUploadThing) {
+    await auth.protect();
   }
-})
+});
 
 export const config = {
   matcher: [
