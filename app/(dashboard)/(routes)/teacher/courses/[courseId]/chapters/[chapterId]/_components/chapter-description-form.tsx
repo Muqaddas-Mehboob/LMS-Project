@@ -103,11 +103,11 @@ export const ChapterDescriptionForm = ({
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormControl>
-                    <Editor
-                      {...field}
-                    />
-                  </FormControl>
+                  <Editor
+                    // {...field}
+                    value={field.value}
+                    onChange={field.onChange}
+                    />                  
                   <FormMessage />
                 </FormItem>
               )}
@@ -126,3 +126,4 @@ export const ChapterDescriptionForm = ({
     </div>
   )
 }
+

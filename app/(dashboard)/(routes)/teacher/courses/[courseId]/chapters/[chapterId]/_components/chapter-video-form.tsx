@@ -39,9 +39,12 @@ export const ChapterVideoForm = ({
       toast.success("Chapter updated");
       toggleEdit();
       //router.refresh();
-      const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
-      const url = `${baseUrl}/teacher/courses/${courseId}/chapters/${chapterId}`;
-      window.location.assign(url);
+      // const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
+      // const url = `${baseUrl}/teacher/courses/${courseId}/chapters/${chapterId}`;
+      // window.location.assign(url);
+
+      router.push(`/teacher/courses/${courseId}/chapters/${chapterId}`);
+
 
     } catch {
       toast.error("Something went wrong");

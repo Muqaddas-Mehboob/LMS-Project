@@ -102,7 +102,7 @@ const CreatePage = () => {
                             }
                         />
                         <div className="flex items-center gap-x-2" >
-                            <Link href="/teacher/courses" legacyBehavior>
+                            <Link href="/teacher/courses" >
                                 <Button 
                                     variant="ghost"
                                     type="button"
