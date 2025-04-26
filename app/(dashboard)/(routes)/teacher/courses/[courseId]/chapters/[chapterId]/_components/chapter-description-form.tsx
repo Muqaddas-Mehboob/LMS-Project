@@ -20,7 +20,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
-import { Editor } from "@/components/editor";
+// import { Editor } from "@/components/editor";
 import { Preview } from "@/components/preview";
 
 interface ChapterDescriptionFormProps {
@@ -88,8 +88,8 @@ export const ChapterDescriptionForm = ({
           {initialData.description && (
             <Preview
               value={initialData.description}
-            />
-          )}
+            /> 
+           )}
         </div>
       )}
       {isEditing && (
@@ -103,11 +103,18 @@ export const ChapterDescriptionForm = ({
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <Editor
+                  <FormControl>
+                    <Textarea
+                       placeholder="Enter chapter description"
+                       className="resize-none"
+                       {...field}
+                     />
+                  </FormControl>
+                  {/* <Editor
                     // {...field}
                     value={field.value}
                     onChange={field.onChange}
-                    />                  
+                    />                   */}
                   <FormMessage />
                 </FormItem>
               )}
