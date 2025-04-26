@@ -7,7 +7,6 @@ import { getProgress } from "@/actions/get-progress";
 
 import { CourseSidebar } from "./_components/course-sidebar";
 import { CourseNavbar } from "./_components/course-navbar";
-// import getSafeProfile from "@/actions/get-safe-profile";
 
 const CourseLayout = async ({
   children,
@@ -20,10 +19,6 @@ const CourseLayout = async ({
   if (!userId) {
     return redirect("/")
   }
-//   const safeProfile = await getSafeProfile();
-//   if (!safeProfile) {
-//     return redirect("/");
-//   }
 
   const course = await db.course.findUnique({
     where: {
@@ -62,7 +57,6 @@ const CourseLayout = async ({
         <CourseNavbar
           course={course}
           progressCount={progressCount}
-          currentProfile={safeProfile}
         />
       </div>
       <div className="hidden md:flex h-full w-80 flex-col fixed inset-y-0 z-50">

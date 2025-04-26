@@ -3,7 +3,11 @@ import { Category, Course } from "@prisma/client";
 import { getProgress } from "@/actions/get-progress";
 import { db } from "@/lib/db";
 
-import { CourseWithProgressWithCategory } from "@/types";
+type CourseWithProgressWithCategory = Course & {
+  category: Category | null;
+  chapters: { id: string }[];
+  progress: number | null;
+};
 
 type GetCourses = {
   userId: string;
@@ -22,7 +26,6 @@ export const getCourses = async ({
         isPublished: true,
         title: {
                     contains: title,
-                    mode: "insensitive",
         },
         categoryId,
       },
