@@ -1,8 +1,8 @@
+import Stripe from "stripe";
 import { db } from "@/lib/db";
+import { stripe } from "@/lib/stripe";
 import { currentUser } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
-import Stripe from "stripe";
-import { stripe } from "@/lib/stripe";
 
 export async function POST(
     req: Request,
@@ -20,7 +20,7 @@ export async function POST(
 
         const user = await currentUser();   
 
-        if (!user || !user.id) {
+        if (!user || !user.id || !user.emailAddresses?.[0]?.emailAddress) {
             return new NextResponse("Unauthorized", { status: 401 });
         }
 
@@ -51,14 +51,15 @@ export async function POST(
         // define line items for stripe check out page.
         const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [
             {
+                quantity: 1,
                 price_data: {
                     currency: "usd",
                     product_data: {
                         name: course.title,
+                        description: course.description!,
                     },
                     unit_amount: Math.round(course.price! * 100),
                 },
-                quantity: 1,
             },
         ];
 
@@ -73,7 +74,7 @@ export async function POST(
 
         if (!stripeCustomer) {
             const customer = await stripe.customers.create({
-                email: user.emailAddresses?.[0]?.emailAddress,
+                email: user.emailAddresses[0].emailAddress,
             });
 
             stripeCustomer = await db.stripeCustomer.create({
