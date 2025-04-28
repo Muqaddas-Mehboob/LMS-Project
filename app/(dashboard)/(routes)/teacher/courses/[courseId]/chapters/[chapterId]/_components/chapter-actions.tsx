@@ -47,20 +47,35 @@ export const ChapterActions = ({
         }
 
     }
+    // const onDelete = async () => {
+    //     try {
+    //         setIsLoading(true);
+    //         await axios.delete(`/api/courses/${courseId}/chapters/${chapterId}`);
+    //         toast.success("Chapter deleted");
+    //         router.refresh();
+    //         router.push(`/teacher/courses/${courseId}/chapters/${chapterId}`)
+
+    //     } catch {
+    //         toast.error("Something went wrong");
+    //     } finally {
+    //         setIsLoading(false);
+    //     }
+    // }
+
     const onDelete = async () => {
         try {
             setIsLoading(true);
             await axios.delete(`/api/courses/${courseId}/chapters/${chapterId}`);
             toast.success("Chapter deleted");
             router.refresh();
-            router.push(`/teacher/courses/${courseId}/chapters/${chapterId}`)
-
+            router.push(`/teacher/courses/${courseId}`); // 👈 fixed here
         } catch {
             toast.error("Something went wrong");
         } finally {
             setIsLoading(false);
         }
     }
+    
 
     return (
         <div className="flex items-center gap-x-2">
