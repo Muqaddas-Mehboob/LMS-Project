@@ -48,6 +48,15 @@ export async function POST(
             return new NextResponse("Not Found", { status: 404 });
         }   
 
+        // Retrieve the first chapter (or you can change this logic based on which chapter you need)
+        const chapter = await db.chapter.findFirst({
+            where: { courseId: params.courseId, isPublished: true },
+            orderBy: { position: 'asc' }, // Assuming position determines the chapter order
+        });
+
+        if (!chapter) {
+            return new NextResponse("Chapter Not Found", { status: 404 });
+        }
         // define line items for stripe check out page.
         const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [
             {
@@ -94,6 +103,7 @@ export async function POST(
             metadata: {
                 courseId: course.id,
                 userId: user.id,
+                chapterId: chapter.id, // ✅ Add this if it's missing
             },
         });
 

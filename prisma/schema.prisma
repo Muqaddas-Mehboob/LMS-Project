@@ -107,6 +107,7 @@ model UserProgress {
 model Purchase {
   id          String     @id @default(uuid())
   userId      String
+  chapterId   String
 
   courseId    String    
   course      Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
@@ -115,6 +116,7 @@ model Purchase {
   updatedAt   DateTime   @updatedAt
 
   @@unique([userId, chapterId])
+  @@unique([userId, courseId]) // ✅ Add this line
   @@index([courseId])
 }
 
