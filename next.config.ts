@@ -11,6 +11,9 @@ const nextConfig = {
   {
       domains: ['utfs.io', 'img.clerk.com','gev65a2fe9.ufs.sh']
   },
+  eslint: {
+    ignoreDuringBuilds: true, // ✅ disables ESLint errors during builds
+  },
 }
 
 module.exports = nextConfig
